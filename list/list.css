@@ -1,0 +1,144 @@
+.flex {
+    display: flex;
+}
+.active {
+	opacity: 0.8;
+}
+
+.page-head {
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+	position: fixed;
+	display: flex;
+	overflow: hidden;
+	z-index: 998;
+	height: 44px;
+	top: 0;
+	width: 100%;
+	left: 0;
+	align-items: center;
+	padding: 0 14px;
+}
+
+.page-head .back:active {
+	opacity: 0.7;
+}
+.page-head .title {
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 30px;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.library-content {
+	padding: 0px 16px;
+	background-color: white;
+	margin-top: 44px;
+}
+
+.library-content .title {
+	font-size: 14px;
+	border-bottom: 1px rgba(136, 136, 136, 0.5) solid;
+	padding: 13px 0;
+}
+
+.library-content .title .subject {
+	white-space: break-spaces;
+}
+
+.library-content .title .answer {
+	margin-top: 14px;
+	color: #FF4500;
+	font-size: 15px;
+	justify-content: space-between;
+}
+
+.library-content .title .answer ._image {
+	width: 18px;
+	height: 18px;
+}
+
+.library-content .title .answer .tip {
+	align-items: center;
+	color: #51C294;
+	white-space: nowrap;
+	margin-left: 80px;
+}
+
+@keyframes ansPopuoCover{
+	from{
+		background-color: rgba(0, 0, 0, 0);
+	}
+	to{
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+}
+.ans-popuo {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right:0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	animation: ansPopuoCover 0.2s;
+}
+
+@keyframes ansPopuoContentBox{
+	from{
+		transform: translateY(100%);
+	}
+	to{
+		transform: translateY(0%);
+	}
+}
+.ans-popuo .content-box {
+	position: absolute;
+	left: 0;
+	right:0;
+	bottom: 0;
+	min-height: 55%;
+	max-height: 85%;
+	background-color: white;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	padding: 25px 21px;
+	font-size: 14px;
+	display: flex;
+	flex-direction: column;
+	transform: translateY(0%);
+	animation: ansPopuoContentBox 0.25s;
+}
+.ans-popuo .content-box .close-btn {
+	position: absolute;
+	top: 12px;
+	right: 16px;
+}
+.ans-popuo .content-box .content {
+	overflow: auto;
+	flex: 1;
+}
+.ans-popuo .content-box .confirm {
+	margin-top: 30px;
+	color: #fff;
+	background-color: #62C362;
+	padding: 0 12px;
+	font-size: 14px;
+	height: 40px;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	box-sizing: border-box;
+	flex-direction: row;
+	border-radius: 100px;
+	flex-shrink: 0;
+}
+.ans-popuo .content-box .confirm:active {
+	opacity: 0.85;
+}

@@ -1,0 +1,61 @@
+ /* Public */
+ @keyframes _displayNone{
+ 	from {
+		opacity: 0.5;
+	}
+ 	to {
+		opacity: 1;
+	}
+ }
+ .displayNone {
+	 display: none !important;
+ }
+
+.book-list {
+}
+
+.selectControl {
+	padding: 0 22px;
+	margin-bottom: 20px;
+}
+
+.book-list ul {
+	list-style: none;
+	margin: 0;
+	padding: 0 22px;
+}
+
+.book-list ul li .title {
+	height: 42px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+}
+
+.book-list ul li .title #arrow {
+	transition: transform 0.2s;
+}
+
+.book-list ul li .title:not(:last-child)::after {
+	content: '';
+	border-bottom: 1px #CCC solid;
+	position: absolute;
+	left:0;
+	right:0;
+	bottom: 0;
+	transform: scaleY(0.5);
+}
+
+.book-list ul li .index {
+	animation:_displayNone 0.5s linear;
+}
+
+.book-list ul li .index .chapter {
+	color: #2979ff;
+	text-decoration: underline;
+	padding: 15px 0;
+	display: inline-block;
+	width: 65px;
+	cursor: pointer;
+}

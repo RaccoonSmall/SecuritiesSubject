@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>New Securities</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="index.css"/>
+		<script src="./static/js/vue@v2.6.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="book-list">
+				<div class="selectControl">
+					<span>类目：</span>
+					<select @change="selectChange($event)">
+						<option value="证券市场基本法律法规" :selected="columnText == '证券市场基本法律法规'">证券市场基本法律法规</option>
+						<option value="金融市场基础知识" :selected="columnText == '金融市场基础知识'">金融市场基础知识</option>
+						
+						<option value="押题-法律法规" :selected="columnText == '押题-法律法规'">押题 - 法律法规</option>
+						<option value="押题-基础知识" :selected="columnText == '押题-基础知识'">押题 - 基础知识</option>
+					</select>
+				</div>
+				
+				<ul>
+					<li v-for="(key, index) of Object.keys(bookObject)" :key="index" :title="key">
+						<div class="title" :index="'__Index' + index" @click="onTitle($event, '__Index' + index)">
+							<div>{{ key }}</div>
+							
+							<div>
+								<div id="arrow"><svg t="1658144896240" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2952" width="16" height="16"><path d="M1005.9 333L576 762.9c-17.3 17.3-40.2 26.7-64.7 26.7s-47.4-9.5-64.7-26.7L16.8 333c-22.3-22.3-22.3-58.5 0-80.8 22.3-22.3 58.5-22.3 80.8 0l413.8 413.7 413.8-413.8c22.3-22.3 58.5-22.3 80.8 0 11.2 11.2 16.7 25.8 16.7 40.5-0.1 14.6-5.6 29.2-16.8 40.4z m0 0" fill="#909399" p-id="2953"></path></svg></div>
+							</div>
+						</div>
+						
+						<div :id="'__Index' + index" class="index displayNone">
+							<div @click="toPractice(name, key)" v-for="(name, i) of bookObject[key]" :key="i" class="chapter">练习 {{ i + 1}}</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="./static/js/axios.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="./static/js/moment.js" charset="utf-8"></script>
+	
+	<script type="text/javascript" src="static/data/data.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data() {
+				return {
+					showPicker:false,
+					columnText: '押题-法律法规',
+					columns:[
+						[
+							'证券市场基本法律法规',
+							'金融市场基础知识',
+							
+							'押题-法律法规',
+							'押题-基础知识',
+						]
+					],
+					
+					bookObject: {},
+				}
+			},
+			computed:{
+			},
+			mounted:function() {
+				var COLUMN_TEXT = window.localStorage.getItem('COLUMN_TEXT');
+				COLUMN_TEXT ? this.columnText = COLUMN_TEXT : '';
+				
+				this.setList();
+			},
+			methods:{
+				selectChange(e) {
+					if(e.currentTarget.value != this.columnText) {
+						this.columnText = e.currentTarget.value;
+						window.localStorage.setItem('COLUMN_TEXT', this.columnText);
+						
+						this.setList();
+					}
+				},
+				toPractice(name, key) {
+					window.location.href = './list/list.html?name=' + name + '&columnText=' + key
+				},
+				setList() {
+					// debugger
+					if(this.columnText == '证券市场基本法律法规') {
+						this.bookObject = curriculum.lawsRegulations;
+						return;
+					}
+					
+					if(this.columnText == '金融市场基础知识') {
+						this.bookObject = curriculum.basicKnowledge;
+						return;
+					}
+					
+					if(this.columnText == '押题-法律法规') {
+						this.bookObject = curriculum.ytFVFG;
+						return;
+					}
+					
+					if(this.columnText == '押题-基础知识') {
+						this.bookObject = curriculum.ytJCZS;
+						return;
+					}
+				},
+				onTitle:function(e, _index) {
+					var el = document.getElementById(_index);
+					
+					if(el.classList.contains('displayNone')) {
+						el.classList.remove('displayNone')
+						e.currentTarget.querySelector('#arrow').style.transform = 'rotate(-180deg)'
+					}else {
+						el.classList.add('displayNone')
+						e.currentTarget.querySelector('#arrow').style.transform = 'rotate(0deg)'
+					}
+				}
+			}
+		})
+	</script>
+</html>
